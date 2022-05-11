@@ -11,7 +11,7 @@
   
   <title>
     
-      Archives 
+      errorlog 
       
       
     
@@ -33,6 +33,10 @@
 
 
   
+
+  
+    
+<link rel="stylesheet" href="/css/post.css">
 
   
 
@@ -94,57 +98,82 @@
 
 
       <div class="main">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2022</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Decision Tree">
-        <div class="time-m-d">05-11</div>
-        <div class="title">
-          <a href="/2022/05/11/Decision-Tree/">
-            
-              <span>Decision Tree</span>
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="errorlog">
-        <div class="time-m-d">05-11</div>
-        <div class="title">
-          <a href="/2022/05/11/errorlog/">
-            
-              <span>errorlog</span>
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">05-10</div>
-        <div class="title">
-          <a href="/2022/05/10/hello-world/">
-            
-              <span>Hello World</span>
-            
-          </a>
-        </div>
-      </div>
-    
+<div class="post">
+  <h3 class="date">
+    May 11, 2022
+  </h3>
+  <h1>
+    errorlog
+  </h1>
+  <div class="content markdown-body">
+    <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="Uncaught-SyntaxError-The-requested-module-‘…’-does-not-provide-an-export-named-‘default’-（已解决）"><a href="#Uncaught-SyntaxError-The-requested-module-‘…’-does-not-provide-an-export-named-‘default’-（已解决）" class="headerlink" title="Uncaught SyntaxError: The requested module ‘…’ does not provide an export named ‘default’ （已解决）"></a>Uncaught SyntaxError: The requested module ‘…’ does not provide an export named ‘default’ （已解决）</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p><img src="https://enophan-picgo-core.oss-cn-hangzhou.aliyuncs.com/enophan.github.io/does-not-provide-an-export-named-'default'.jpg" alt="does-not-provide-an-export-named-&#39;default&#39;"></p>
+<blockquote>
+<p>Uncaught SyntaxError: The requested module ‘&#x2F;node_modules&#x2F;.vite&#x2F;deps&#x2F;marked.js?t&#x3D;1652015888471&amp;v&#x3D;fc87ddf8’ does not provide an export named ‘default’ (at Editor.vue:48:8)</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> marked <span class="keyword">from</span> <span class="string">&#x27;marked&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>先按照提醒</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i <span class="literal">--save-dev</span> @types/marked</span><br></pre></td></tr></table></figure>
+
+<p>接着出现这个错，控制台还是上面的那个错</p>
+<p><img src="https://enophan-picgo-core.oss-cn-hangzhou.aliyuncs.com/enophan.github.io/%E5%B7%B2%E5%A3%B0%E6%98%8E%E4%BD%86%E6%9C%AA%E8%AF%BB%E5%8F%96%E5%80%BC.jpg"></p>
+<p>然后点击<code>marked</code>进入<code>index.d.ts</code>文件里</p>
+<img src="https://enophan-picgo-core.oss-cn-hangzhou.aliyuncs.com/enophan.github.io/marked.jpg" style="zoom:30%;" />
+
+<p>发现导出了名为<code>marked</code>的函数，根据一些印象，觉得应该这样改一下</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;marked&#125; <span class="keyword">from</span> marked</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以了。但是还是不清楚原因是什么。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><ol>
+<li><p>What is <code>*.d.ts</code>[^1]</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6987735091925483551">一文读懂TS的(.d.ts)文件 - 掘金 (juejin.cn)</a></p>
+</li>
+<li><p><code>*.d.ts</code> is a type declaration file for JavaScript libraries. Without type declaration file, TypeScript doesn’t work because it doesn’t know the type.</p>
+</li>
+</ul>
+</li>
+<li><p><code>npm i --save-dev @types/marked</code> What does this command do?</p>
+<ul>
+<li><code>@types</code>[^2] is a branch of npm to getting <code>*.d.ts</code> files. Before microsoft pulished the TypeScript 2.0, it was little complex to get <code>*.d.ts</code> files, however after TS2.0 was pulished, getting declarations in TS2.0 required no tools apart from[^3] npm. My question is that the beginning of downloading marked doesn’t contain the <code>*.d.ts</code> files, the function of this line of command is to download the files.</li>
+</ul>
+</li>
+<li><p>Difference between <code>import marked from marked</code> and <code>import &#123;marked&#125; from marked</code>[^4][^5]</p>
+<ul>
+<li>进入 index.d.ts 文件里，看到导出的是 function，而没有 default。这个涉及到 import xxx from 和 import {xxx} from 的差别了。只有用 export default 导出的，才能用 import xxx from ，xxx 可以随你自己写，但是没有 export function 意味着人家有规定导出的名字，import {marked} from marked 意思就是从marked 中提取 marked 函数。</li>
+</ul>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>[^ 1]: ts docs link: <a target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/declaration-files/dts-from-js.html#handbook-content">https://www.typescriptlang.org/docs/handbook/declaration-files/dts-from-js.html#handbook-content</a></p>
+<p>[^2]: The Future of Delaration Files link:<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/typescript/the-future-of-declaration-files-2/">https://devblogs.microsoft.com/typescript/the-future-of-declaration-files-2/</a></p>
+<p>[^3]: apart from 除了；除了npm不需要其他工具</p>
+<p>[^5]: difference between they link:<a target="_blank" rel="noopener" href="https://blog.actorsfit.com/a?ID=01550-560cb520-4499-4aed-8d2e-d58de7d73e78">https://blog.actorsfit.com/a?ID=01550-560cb520-4499-4aed-8d2e-d58de7d73e78</a></p>
+
   </div>
+  
+    
+      <a id="older" class="blog-nav" href="/2022/05/10/hello-world/">OLDER&nbsp;&gt;</a>
+      
+        
+          <a id="newer" class="blog-nav" href="/2022/05/11/Decision-Tree/">&lt;&nbsp;NEWER</a>
+          
+            
 </div>
-
         <div class="footer">
   
     <div class="footer-more">
