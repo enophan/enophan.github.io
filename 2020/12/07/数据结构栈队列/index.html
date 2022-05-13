@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      数据结构-栈和队列 
+      
+      
+    
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto:400,400italic,600|Roboto+Mono" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+
+
+  
+
+  
+    
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <a href="/">ENOPHAN</a>
+</div>
+
+
+      <p class="links">
+  
+    <a title="archives" target="" href="/archives/">
+      <i class="iconfont icon-bookmark"></i>
+    </a>
+  
+    <a title="github" target="_blank" href="https://github.com/enophan">
+      <i class="iconfont icon-github"></i>
+    </a>
+  
+    <a title="email" target="" href="">
+      <i class="iconfont icon-envelope"></i>
+    </a>
+  
+    <a title="facebook" target="" href="">
+      <i class="iconfont icon-facebooksquare"></i>
+    </a>
+  
+    <a title="twitter" target="" href="">
+      <i class="iconfont icon-twitter"></i>
+    </a>
+  
+    <a title="wechat" target="" href="">
+      <i class="iconfont icon-wechat"></i>
+    </a>
+  
+    <a title="weibo" target="" href="">
+      <i class="iconfont icon-weibo"></i>
+    </a>
+  
+    <a title="rss" target="_blank" href="/atom.xml">
+      <i class="iconfont icon-rss"></i>
+    </a>
+  
+</p>
+
+
+      <div class="main">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+</script>
+
+<div class="post">
+  <h3 class="date">
+    Dec 07, 2020
+  </h3>
+  <h1>
+    数据结构-栈和队列
+  </h1>
+  <div class="content markdown-body">
+    <h1 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h1><blockquote>
+<p>栈和队列也是线性表，只不过他们的操作受限。通常称，栈和队列是限定<u><strong>插入</strong></u>和<u><strong>删除</strong></u>只能在表的“<u><strong>端点</strong></u>”进行的线性表。</p>
+</blockquote>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>羽毛球筒，先进后出。</p>
+<h3 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h3><p>栈是限定仅在表尾进行插入或删除操作的线性表，表尾——栈顶，表头——栈底，不含元素的空表称<strong>空栈</strong>。特点：先进后出或后进先出。</p>
+<h3 id="栈的表示和实现"><a href="#栈的表示和实现" class="headerlink" title="栈的表示和实现"></a>栈的表示和实现</h3><p>和线性表一样，也有是有顺序存储结构与链式存储结构的。</p>
+<p>顺序栈，利用一组地址连续的存储单元依次存放字栈底到栈顶的数据元素。同时附一个top指示栈顶的位置。一般来说不设置顺序栈的最大容量，而是不够的时候添加。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> strict &#123;</span><br><span class="line">	SElemType *base; <span class="comment">// 指向栈底的位置，为NULL则说明不存在</span></span><br><span class="line">	SElemType *top; <span class="comment">// 指向栈顶位置</span></span><br><span class="line">	<span class="type">int</span> stacksize; <span class="comment">// 当前可使用的最大容量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当top&#x3D;base的时候自然是顺序栈为空的时候。每当插入一个新栈顶元素，top加一，每当删除一个栈顶元素时，top减一。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">InitStack</span><span class="params">(SqStack &amp;S)</span>&#123;</span><br><span class="line">	<span class="comment">// 建一个新栈</span></span><br><span class="line">	S.base = (SElemType *)<span class="built_in">malloc</span>(INIT_SIZE*(<span class="keyword">sizeof</span> SElemType*));</span><br><span class="line">	<span class="comment">// 写笔记的时候，这里卡了一下，一时间没有理解为什么是S.base，</span></span><br><span class="line">    <span class="comment">// .后来翻看了一下线性表那一章的笔记，</span></span><br><span class="line">    <span class="comment">// 这个S.base应该是栈的基址</span></span><br><span class="line">	<span class="keyword">if</span>(!S.base) <span class="built_in">exit</span>(OVERFLOW);</span><br><span class="line">	S.top = S.base;</span><br><span class="line">	S.stacksize = INIT_SIZE;</span><br><span class="line">	<span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取栈顶元素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">GetTop</span><span class="params">(SqStack S, SElemType &amp;e)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(S.top = S.base) <span class="keyword">return</span> ERROR;</span><br><span class="line">	e = *(S.top<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">return</span> OK</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加新的栈顶元素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">Push</span><span class="params">(SqStack S, SElemType &amp;e)</span> &#123;</span><br><span class="line">	<span class="keyword">if</span>(S.top-S.base&gt;=S.stacksize) &#123;</span><br><span class="line">	<span class="comment">//栈满了</span></span><br><span class="line">	S.base=</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="栈的应用举例"><a href="#栈的应用举例" class="headerlink" title="栈的应用举例"></a>栈的应用举例</h2><h3 id="数制转换"><a href="#数制转换" class="headerlink" title="数制转换"></a>数制转换</h3><p>十进制数N和其他d进制转换：<code>N=(N div d)xd+N mod d</code>（div为取整运算，mod为求余）</p>
+<p>上述计算过程，从低位到高位顺序产生d进制数，但是输出时，应该是从高位到地位输出的，正好相反。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">conversion</span><span class="params">(d)</span> &#123;</span><br><span class="line">	InitStack(S);</span><br><span class="line">	<span class="built_in">scanf</span>(“%d”, N);</span><br><span class="line">	<span class="keyword">while</span>(N) &#123;</span><br><span class="line">	<span class="comment">// 这个循环一下子没看懂的话，可以画一画图</span></span><br><span class="line">		push(S, N%d);</span><br><span class="line">		N=N/d;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(S.top!=S.base) &#123;</span><br><span class="line">		Pop(S, e); <span class="comment">// 删除;</span></span><br><span class="line">		<span class="built_in">printf</span>(“%d”, e); <span class="comment">// 按高位到低位顺序输出</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="括号匹配的检验"><a href="#括号匹配的检验" class="headerlink" title="括号匹配的检验"></a>括号匹配的检验</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">Match</span><span class="params">()</span>&#123;</span><br><span class="line">	InitStack(S);</span><br><span class="line">	<span class="keyword">do</span>&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(“%s”, new);</span><br><span class="line">		<span class="keyword">switch</span>(new) &#123;</span><br><span class="line">			<span class="keyword">case</span> ‘[‘:</span><br><span class="line">			<span class="keyword">case</span> ‘(’: Push(S, new); <span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> ‘]’:</span><br><span class="line">			<span class="keyword">case</span> ‘)’:</span><br><span class="line">				<span class="keyword">if</span>(new == *S.top) Pop(S, e);</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">return</span> ERROR;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>: <span class="keyword">return</span> ERROR;</span><br><span class="line">		&#125; <span class="comment">//switch</span></span><br><span class="line">	&#125;<span class="keyword">while</span>(S.top!=S.base);</span><br><span class="line">	DestroyStack(S);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上边的伪代码，功能貌似是实现了，但是总感觉差点意思。 </p>
+</blockquote>
+<h3 id="行编辑程序"><a href="#行编辑程序" class="headerlink" title="行编辑程序"></a>行编辑程序</h3><p>用户要输入东西，但是你不能他输入什么你就存什么，万一他输错了呢，所以要放在缓存区内，方便用户修改。缓存区设置成一个栈，将用户输入的字符存进去，存的时候先进行判断，如果是退格符<code>#</code>，或者是退行符<code>@</code>，那就压入栈中，如果是，那要不删除栈顶元素，要不清空栈。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">LineEdit</span><span class="params">()</span> &#123;</span><br><span class="line">	InitStack(S); <span class="comment">// 这个栈存的是一行元素</span></span><br><span class="line">	ch = getchar();</span><br><span class="line">	<span class="keyword">while</span>(ch!=EOF)&#123;</span><br><span class="line">		<span class="keyword">while</span>(ch!=EOF &amp;&amp; ch!=‘\n’) &#123;</span><br><span class="line">			<span class="keyword">switch</span>(ch)&#123;</span><br><span class="line">				<span class="keyword">case</span> ‘#’: Pop(S, e); <span class="keyword">break</span>; </span><br><span class="line">                    <span class="comment">// 如果是#就删除栈顶元素</span></span><br><span class="line">				<span class="keyword">case</span> ‘@‘: ClearStack(S); <span class="keyword">break</span>; </span><br><span class="line">                    <span class="comment">//@就把这个栈清空</span></span><br><span class="line">				<span class="keyword">default</span>: Push(S, ch); <span class="keyword">break</span>; </span><br><span class="line">                    <span class="comment">// 输入其他的就放入栈中</span></span><br><span class="line">			&#125;</span><br><span class="line">			ch = getchar();</span><br><span class="line">		&#125;</span><br><span class="line">		ClearStack(S);</span><br><span class="line">		<span class="keyword">if</span>(ch==‘\n’) ch = getchar(); </span><br><span class="line">        <span class="comment">// 如果仅仅是换行的话，就继续存</span></span><br><span class="line">	&#125;</span><br><span class="line">	DestroyStack(S); <span class="comment">// 销毁栈</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="迷宫求解"><a href="#迷宫求解" class="headerlink" title="迷宫求解"></a>迷宫求解</h3><h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>队列和栈不同，队列一种先进先出的线性表，就和日常生活中的排队一样。在队列中，云需插入的一端叫<strong>队尾</strong>，允许删除的一端叫做<strong>队头</strong>。</p>
+<p>双端队列</p>
+<h3 id="链队列"><a href="#链队列" class="headerlink" title="链队列"></a>链队列</h3><p>需要头指针与尾指针，指向队头与队尾。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> &#123;</span></span><br><span class="line">	QElemType data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;QNode, *QueuePtr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	QueuePtr front; <span class="comment">// 队头指针</span></span><br><span class="line">	QueuePtr rear; <span class="comment">// 队尾指针</span></span><br><span class="line">&#125;LinkQueue;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>删除队头</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">DeQueue</span><span class="params">(LinkQueue &amp;Q, QElemType &amp;e)</span> &#123;</span><br><span class="line">	p = Q.front-&gt;next;</span><br><span class="line">	e = p-&gt;data;</span><br><span class="line">	Q.front-&gt;next = p.front-&gt;next;</span><br><span class="line">	<span class="keyword">if</span>(Q.rear == p) Q.rear = Q.front; </span><br><span class="line">	<span class="comment">// 如果删除的刚好就是队尾，那就需要重新赋值，不然队尾就丢了</span></span><br><span class="line">	<span class="built_in">free</span>(p);</span><br><span class="line">	<span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>队列的循序表示与实现。插入新的队列尾元素时，尾指针加一；删除队列头元素时，头指针加一。非空队列中，头指针始终指向队头元素，尾指针始终指向队尾元素的后一位。</p>
+<p>可以发现，不管是添加还是删除，都会往后移一位，那么两个一直往后退，退到最后一位，前面却全空了。</p>
+<p>有一个方法(结合教材p63理解)，臆想一个环形的队列，这样就解决了空表不能存放数据的问题，但是<code>Q.front=Q.rear</code>却不能判断队列是否为空。</p>
+<p>解决上述问题：</p>
+<ol>
+<li>另外设置一个标志来区分队列是否为空</li>
+<li>少用一个元素空间，约定以“队列头指针在队列尾指针的下一位置（指环状的下一位置）上”作为队列呈“满”状态的标志。（没懂）</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXQSIZE 100 <span class="comment">//最大队列长度</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	QElemType *base; <span class="comment">//初始化动态分配存储空间</span></span><br><span class="line">	<span class="type">int</span> front;</span><br><span class="line">	<span class="type">int</span> rear;</span><br><span class="line">&#125;SqQueue;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+    
+        
+          <a id="newer" class="blog-nav" href="/2022/05/10/hello-world/">&lt;&nbsp;NEWER</a>
+          
+            
+</div>
+        <div class="footer">
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/leedom92/hexo-theme-leedom">Copyright © Leedom 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/leedom92/hexo-theme-leedom">Theme by Leedom | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-box">
+        <div class="search-title">
+          <!-- <span class="search-icon-input">
+            <a href="javascript: void(0)">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </span> -->
+          
+            <input type="text" class="search-input" id="search-input" placeholder="$ grep...">
+          
+          <span class="search-close-icon" id="search-close-icon">
+            <a href="javascript: void(0)">
+              <i class="iconfont icon-close"></i>
+            </a>
+          </span>
+        </div>
+        <div class="search-result" id="search-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    // inputArea.onclick = function() {
+    //   getSearchFile()
+    //   this.onclick = null
+    // }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        inputArea.focus()
+        getSearchFile()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'><span></ul>";
+      // $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='/" + data_url + "' class='search-result-title'><h2>" + orig_data_title + "</h2></a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<h3 class=\"search-result-abstract\">" + match_content + "...</h3>"
+                }
+                str += "<hr></li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/leedom92/hexo-theme-leedom#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
