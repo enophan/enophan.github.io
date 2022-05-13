@@ -159,7 +159,8 @@
 <p>删除队头</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">DeQueue</span><span class="params">(LinkQueue &amp;Q, QElemType &amp;e)</span> &#123;</span><br><span class="line">	p = Q.front-&gt;next;</span><br><span class="line">	e = p-&gt;data;</span><br><span class="line">	Q.front-&gt;next = p.front-&gt;next;</span><br><span class="line">	<span class="keyword">if</span>(Q.rear == p) Q.rear = Q.front; </span><br><span class="line">	<span class="comment">// 如果删除的刚好就是队尾，那就需要重新赋值，不然队尾就丢了</span></span><br><span class="line">	<span class="built_in">free</span>(p);</span><br><span class="line">	<span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>可以发现，不管是添加还是删除，都会往后移一位，那么两个一直往后退，退到最后一位，前面却全空了。</p>
+<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>队列的循序表示与实现。插入新的队列尾元素时，尾指针加一；删除队列头元素时，头指针加一。非空队列中，头指针始终指向队头元素，尾指针始终指向队尾元素的后一位。</p>
+<p>可以发现，不管是添加还是删除，都会往后移一位，那么两个一直往后退，退到最后一位，前面却全空了。</p>
 <p>有一个方法(结合教材p63理解)，臆想一个环形的队列，这样就解决了空表不能存放数据的问题，但是<code>Q.front=Q.rear</code>却不能判断队列是否为空。</p>
 <p>解决上述问题：</p>
 <ol>
